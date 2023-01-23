@@ -12,4 +12,10 @@ public class LogFactoryTests : FileLoggerTestsBase
         LogFactory logFactory = new();
         logFactory.ConfigureFileLogger(FilePath);
     }
+
+    [TestMethod]
+    public void ConfigureFileLogger_GivenFilePath()
+    {
+        FileLogger fileLogger = (FileLogger)FileLogger.CreateLogger(nameof(LogFactoryTests), new FileLoggerConfiguration(FilePath));
+    }
 }

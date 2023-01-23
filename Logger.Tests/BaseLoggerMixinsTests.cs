@@ -31,7 +31,7 @@ public class BaseLoggerMixinsTests
 
 }
 
-public class TestLogger : BaseLogger
+public class TestLogger : ILogger
 {
     public TestLogger(string logSource)
     {
@@ -39,10 +39,12 @@ public class TestLogger : BaseLogger
     }
     public List<(LogLevel LogLevel, string Message)> LoggedMessages { get; } = new List<(LogLevel, string)>();
 
-    public override string LogSource { get; }
+    public string LogSource { get; }
 
+    public static ILogger CreateLogger(string className, ILoggerConfiguration? configuration) =>
+        new TestLogger(className);
 
-    public override void Log(LogLevel logLevel, string message)
+    public void Log(LogLevel logLevel, string message)
     {
         LoggedMessages.Add((logLevel, message));
     }
